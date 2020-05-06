@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 
 WORKDIR /project
 
+COPY scan.sh /usr/local/bin/scan.sh
+
 ENV ToolPath=/usr/local/bin
 ENV CoverletVersion=1.7.1
 ENV SonarScannerVersion=4.9.0
