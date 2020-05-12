@@ -21,7 +21,7 @@ syntax=$(cat<<END
 ::      [Sonar project key] \\ 
 ::      [Sonar organization] \\ 
 ::      [Sonar auth token] \\ 
-::      [Unit test DLL path] \\ 
+::      [Unit test DLL filename] \\ 
 ::      [C# project path (default:$projectPathDefault)] \\ 
 ::      [SonarQube server URL (default:$sonarUrlDefault)]
 ::
@@ -32,7 +32,7 @@ END
 sonarProjectKey=${1:?"$syntax"}
 sonarOrg=${2:?"$syntax"}
 sonarToken=${3:?"$syntax"}
-unitTestDllPath=${4:?"$syntax"}
+unitTestDllFilename=${4:?"$syntax"}
 
 # Optional params
 projectPath=${5:-"$projectPathDefault"}
@@ -48,12 +48,14 @@ dotnet-sonarscanner begin  \
   -d:sonar.login=$sonarToken \
   -d:sonar.cs.opencover.reportsPaths=$coveragePath
 
-dotnet build -c Release $projectPath
+dotnet build \
+  -c Release $projectPath \
+  -o .\output
 
 coverlet \
-  $unitTestDllPath \
+  .\output\$unitTestDllFilename \
   --target "dotnet" \
-  --targetargs "test $unitTestDllPath --no-build" \
+  --targetargs "test .\output\$unitTestDllFilename --no-build" \
   -f opencover -o $coveragePath
 
 dotnet-sonarscanner end  \
