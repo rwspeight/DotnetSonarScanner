@@ -50,12 +50,12 @@ dotnet-sonarscanner begin  \
 
 dotnet build \
   -c Release $projectPath \
-  -o .\output
+  -o ./output
 
 coverlet \
-  .\output\$unitTestDllFilename \
+  ./output/$unitTestDllFilename \
   --target "dotnet" \
-  --targetargs "test .\output\$unitTestDllFilename --no-build" \
+  --targetargs "test ./output/$unitTestDllFilename --no-build" \
   -f opencover -o $coveragePath
 
 dotnet-sonarscanner end  \
