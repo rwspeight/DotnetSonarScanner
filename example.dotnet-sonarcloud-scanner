@@ -1,0 +1,20 @@
+###
+### Configuration file for dotnet-sonarcloud-scanner
+### 
+### Copy to {repo root}/.dotnet-sonarcloud-scanner
+###
+
+# The URL to the SonarQube server
+SonarQubeUrl=https://sonarcloud.io
+
+# The name of the project as registered in SonarQube/SonarCloud
+SonarProjectKey=somekey
+
+# The organization name under which the project is registered
+SonarOrganization=someorg
+
+# The path to the source files relative to the repo root (e.g.: ./src)
+SourcePath=./src
+
+# A list of unit test project folder names to run for coverage reporting
+TestProjects=Unit.Tests.A,Unit.Tests.B,Unit.Tests.C
